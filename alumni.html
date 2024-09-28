@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Association</title>
+    <style>
+        /* Basic styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: PaleTurquoise;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            margin-right: 10px;
+        }
+
+        .site-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-icon {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .nav-icon div {
+            width: 30px;
+            height: 4px;
+            background-color: #333;
+            margin: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+        .nav-menu a {
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+            text-align: center;
+        }
+
+        .nav-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .content {
+            margin-top: 20px;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .button {
+            background-color: #008080;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #006666;
+        }
+
+        .section {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter {
+            margin-bottom: 20px;
+        }
+
+        .filter label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .filter select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .profiles,
+        .events,
+        .achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .profile-card,
+        .event-card,
+        .achievement-card {
+            width: 150px;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .profile-card img,
+        .event-card img,
+        .achievement-card img {
+            width: 100%;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        .bio-textbox,
+        .comment-textbox {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .bio-container,
+        .achievement-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .login-button {
+            background-color: #008080;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #006666;
+        }
+
+        .event-card img,
+        .achievement-card img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .feedback-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .comments p {
+            margin: 10px 0;
+        }
+
+        .message-box textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+
+        .message-box button {
+            background-color: #008080;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .message-box button:hover {
+            background-color: #006666;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\HD-wallpaper-harry-potter-books-harry-potter.jpg" alt="Logo" class="logo" width="50">
+            <div class="site-name">Alumni Association</div>
+        </div>
+        <div class="nav-icon" onclick="toggleNavMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+    <a href="#" onclick="showLogin(); return false;">Login</a>
+    <!-- Navigation Menu -->
+    <div class="nav-menu" id="navMenu">
+        <a href="#" onclick="navigate('masters')">Masters</a>
+        <a href="#" onclick="navigate('jobs')">Jobs</a>
+        <a href="#" onclick="navigate('events')">Events</a>
+        <a href="#" onclick="navigate('mentorship')">Mentorship</a>
+        <a href="#" onclick="navigate('feedback')">Feedback</a>
+        <a href="#" onclick="navigate('achievements')">Alumni Achievements</a>
+        <a href="#" onclick="navigate('resume')">Resume Templates</a>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content" id="content">
+        <!-- Dynamic content will be loaded here based on selection -->
+    </div>
+
+    <!-- Home Page Section -->
+    <div class="home-page" id="homePage" style="display: none;">
+        <h2 style="margin-bottom: 40px;">Welcome to the Alumni Association Portal</h2>
+        <div class="button-container">
+            <button class="button" onclick="navigate('masters')">Masters</button>
+            <button class="button" onclick="navigate('jobs')">Jobs</button>
+            <button class="button" onclick="navigate('events')">Events</button>
+            <button class="button" onclick="navigate('mentorship')">Mentorship</button>
+            <button class="button" onclick="navigate('feedback')">Feedback</button>
+            <button class="button" onclick="navigate('achievements')">Alumni Achievements</button>
+            <button class="button" onclick="navigate('resume')">Resume Templates</button>
+        </div>
+    </div>
+
+    <!-- Masters Section -->
+    <div class="section" id="masters" style="display: none;">
+        <h2>Masters Programs</h2>
+        <div class="filter">
+            <label for="program">Select Program:</label>
+            <select id="program">
+                <option value="all">All Programs</option>
+                <option value="engineering">Engineering</option>
+                <option value="medicine">Medicine</option>
+                <option value="science">Science</option>
+                <option value="humanities">Humanities</option>
+                <option value="business">Business</option>
+                <option value="law">Law</option>
+                <option value="art">Art</option>
+                <option value="architecture">Architecture</option>
+            </select>
+     
+        </div>
+        <div class="profiles">
+            <!-- Sample Profiles -->
+            <div class="profile-card">
+                <img src="profile-pic1.jpg" alt="Profile 1">
+                <h3>John Doe</h3>
+                <p>Engineering</p>
+		
+            </div>
+
+            <div class="profile-card">
+                <img src="profile-pic2.jpg" alt="Profile 2">
+                <h3>Jane Smith</h3>
+                <p>Medicine</p> 
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Jobs Section -->
+    <div class="section" id="jobs" style="display: none;">
+        <h2>Job Listings</h2>
+        <div class="filter">
+            <label for="job-category">Select Category:</label>
+            <select id="job-category">
+                <option value="all">All Categories</option>
+                <option value="engineering">Engineering</option>
+                <option value="medicine">Medicine</option>
+                <option value="science">Science</option>
+                <option value="humanities">Humanities</option>
+                <option value="business">Business</option>
+                <option value="law">Law</option>
+                <option value="art">Art</option>
+                <option value="architecture">Architecture</option>
+            </select>
+        </div>
+        <div class="profiles">
+            <!-- Sample Job Listings -->
+            <div class="profile-card">
+                <h3>Software Engineer</h3>
+                <p>Company A</p>
+            </div>
+            <div class="profile-card">
+                <h3>Research Scientist</h3>
+                <p>Company B</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Section -->
+    <div class="section" id="events" style="display: none;">
+        <h2>Upcoming Events</h2>
+        <div class="events">
+            <!-- Sample Events -->
+            <div class="event-card">
+                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Meet-UP.png" alt="Event 1">
+                <h3>Alumni Meet-Up</h3>
+                <p>Date: 2024-09-15</p>
+            </div>
+            <div class="event-card">
+                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Career-Fair.png" alt="Event 2">
+                <h3>Career Fair</h3>
+                <p>Date: 2024-10-01</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mentorship Section -->
+    <div class="section" id="mentorship" style="display: none;">
+        <h2>Mentorship Program</h2>
+        <p>Details about mentorship programs and how to apply.</p>
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="section" id="feedback" style="display: none;">
+        <h2>Feedback</h2>
+        <div class="form-container">
+            <textarea id="feedback-textbox" class="bio-textbox" rows="4" placeholder="Write your feedback here..."></textarea>
+            <button class="button" onclick="postFeedback()">Submit Feedback</button>
+        </div>
+        <div class="feedback-section">
+            <div id="feedback-comments" class="comments">
+                <!-- Feedback comments will be added here -->
+            </div>
+        </div>
+    </div>
+
+<!-- Achievements Section -->
+<div class="section" id="achievements" style="display: none;">
+    <h2>Alumni Achievements</h2>
+    <div class="achievements">
+        <!-- Award Winner Section -->
+        <div class="achievement-card">
+            <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Achievements.png" alt="Achievement 1">
+            <h3>Award Winner</h3>
+            <p>Description of the award.</p>
+            <button class="button" onclick="showAwardDomains()">View Domains</button>
+        </div>
+        <!-- Published Research Section -->
+        <div class="achievement-card">
+            <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\Research Papers.png" alt="Achievement 2">
+            <h3>Published Research</h3>
+            <p>Details about the research.</p>
+            <button class="button" onclick="showPublishedResearch()">View Research</button>
+        </div>
+    </div>
+
+    <!-- Award Winner Domains Section -->
+<div id="awardDomains" class="section" style="display: flex; margin-top: 20px;">
+    <h3>Select a Domain</h3>
+    <div class="button-container">
+        <button class="button" onclick="viewDomain('sports.html')">Sports</button>
+        <button class="button" onclick="viewDomain('academics.html')">Academics</button>
+        <button class="button" onclick="viewDomain('socialService.html')">Social Service</button>
+        <button class="button" onclick="viewDomain('extraActivities.html')">Extra Activities</button>
+    </div>
+</div>
+
+<!-- Sports Category -->
+<div id="sports" class="section" style="display: flex;">
+    <h2>Sports Achievers</h2>
+    <div class="profiles">
+        <!-- Profile 1 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>John Doe</h3>
+            <p>Sport: Basketball</p>
+            <p>Year: 2023</p>
+            <p>Branch: Mechanical Engineering</p>
+        </div>
+        <!-- Profile 2 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Jane Smith</h3>
+            <p>Sport: Tennis</p>
+            <p>Year: 2022</p>
+            <p>Branch: Computer Science</p>
+        </div>
+        <!-- Profile 3 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Michael Lee</h3>
+            <p>Sport: Football</p>
+            <p>Year: 2021</p>
+            <p>Branch: Civil Engineering</p>
+        </div>
+        <!-- Profile 4 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Emily Davis</h3>
+            <p>Sport: Swimming</p>
+            <p>Year: 2023</p>
+            <p>Branch: Electrical Engineering</p>
+        </div>
+        <!-- Profile 5 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>David Wilson</h3>
+            <p>Sport: Badminton</p>
+            <p>Year: 2020</p>
+            <p>Branch: Mechanical Engineering</p>
+        </div>
+        <!-- Profile 6 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Anna Johnson</h3>
+            <p>Sport: Volleyball</p>
+            <p>Year: 2021</p>
+            <p>Branch: Chemical Engineering</p>
+        </div>
+        <!-- Profile 7 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Chris Brown</h3>
+            <p>Sport: Cricket</p>
+            <p>Year: 2022</p>
+            <p>Branch: Information Technology</p>
+        </div>
+        <!-- Profile 8 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Olivia Martinez</h3>
+            <p>Sport: Hockey</p>
+            <p>Year: 2020</p>
+            <p>Branch: Civil Engineering</p>
+        </div>
+        <!-- Profile 9 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>James Rodriguez</h3>
+            <p>Sport: Table Tennis</p>
+            <p>Year: 2019</p>
+            <p>Branch: Electronics Engineering</p>
+        </div>
+        <!-- Profile 10 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Isabella Lewis</h3>
+            <p>Sport: Athletics</p>
+            <p>Year: 2021</p>
+            <p>Branch: Mechanical Engineering</p>
+        </div>
+    </div>
+</div>
+
+<!-- Academics Category -->
+<div id="academics" class="section" style="display: flex;">
+    <h2>Academic Achievers</h2>
+    <div class="profiles">
+        <!-- Academic Profile 1 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Sarah Parker</h3>
+            <p>Course: B.Sc. Physics</p>
+            <p>Year: 2022</p>
+            <p>Achievement: Gold Medalist</p>
+        </div>
+        <!-- Academic Profile 2 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>William Turner</h3>
+            <p>Course: B.Tech. CSE</p>
+            <p>Year: 2021</p>
+            <p>Achievement: Dean's List</p>
+        </div>
+        <!-- Academic Profile 3 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Amy Lee</h3>
+            <p>Course: B.Com</p>
+            <p>Year: 2023</p>
+            <p>Achievement: Top Scorer</p>
+        </div>
+        <!-- Academic Profile 4 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Robert King</h3>
+            <p>Course: M.Sc. Chemistry</p>
+            <p>Year: 2020</p>
+            <p>Achievement: Best Research Paper</p>
+        </div>
+        <!-- Academic Profile 5 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Linda Scott</h3>
+            <p>Course: MBA</p>
+            <p>Year: 2019</p>
+            <p>Achievement: Best Project</p>
+        </div>
+    </div>
+</div>
+
+<!-- Social Service Category -->
+<div id="socialService" class="section" style="display: none;">
+    <h2>Social Service Achievers</h2>
+    <div class="profiles">
+        <!-- Social Service Profile 1 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Alice White</h3>
+            <p>Service: Environmental Awareness</p>
+            <p>Year: 2023</p>
+            <p>Achievement: Green Ambassador Award</p>
+        </div>
+        <!-- Social Service Profile 2 -->
+        <div class="profile-card">
+            <img src="path_to_blank_profile_image" alt="Profile">
+            <h3>Mark Evans</h3>
+            <p>Service: Community Education</p>
+            <p>Year: 2022</p>
+            <p>Achievement: Volunteer of the Year</p>
+        </div>
+    </div>
+</div>
+
+    <!-- Published Research Section -->
+    <div id="publishedResearch" class="section" style="display: none; margin-top: 20px;">
+        <h3>Published Research Papers</h3>
+        <div class="profiles">
+            <div class="profile-card">
+                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\ResearchPaper1.png" alt="Research Paper 1">
+                <h4>John Doe</h4>
+                <p>Subject: Physics</p>
+                <p>Year: 2021</p>
+                <button class="button" onclick="viewResearchPaper('physics2021')">View Document</button>
+            </div>
+            <div class="profile-card">
+                <img src="C:\Users\srima\OneDrive\Desktop\CODE Mavericks\ResearchPaper2.png" alt="Research Paper 2">
+                <h4>Jane Smith</h4>
+                <p>Subject: Medicine</p>
+                <p>Year: 2020</p>
+                <button class="button" onclick="viewResearchPaper('medicine2020')">View Document</button>
+            </div>
+            <!-- Add more research papers here -->
+        </div>
+    </div>
+</div>
+
+<script>
+	function showProfileForm(index) {
+            // Function to show detailed profile information
+            const profiles = [
+                { img: 'alumni1.jpg', name: 'John Doe', bio: 'Alumni of Computer Science, specialized in AI/ML.', university: 'XYZ University', company: 'ABC Corp.' },
+                { img: 'alumni2.jpg', name: 'Jane Smith', bio: 'Graduated in Business Administration.', university: 'XYZ University', company: 'Global Finance Inc.' },
+                { img: 'alumni3.jpg', name: 'Michael Lee', bio: 'Engineering graduate with a focus on Cyber Security.', university: 'XYZ University', company: 'SecureTech.' }
+            ];
+    function showAwardDomains() {
+        document.getElementById('awardDomains').style.display = 'block';
+        document.getElementById('publishedResearch').style.display = 'none';
+    }
+
+    function showPublishedResearch() {
+        document.getElementById('publishedResearch').style.display = 'block';
+        document.getElementById('awardDomains').style.display = 'none';
+    }
+
+    function viewDomain(domain) {
+        alert('Displaying achievements in ' + domain);
+        // Here, add code to display the specific achievements or documents related to the selected domain.
+    }
+
+    function viewResearchPaper(paperId) {
+        alert('Opening document for ' + paperId);
+        // Here, add code to open the specific document related to the selected research paper.
+    }
+</script>
+
+    <!-- Resume Templates Section -->
+    <div class="section" id="resume" style="display: none;">
+        <h2>Resume Templates</h2>
+        <p>Downloadable resume templates for your use.</p>
+    </div>
+
+    <!-- Login Box -->
+    <div class="login-container" id="login-container" style="display: none;">
+        <h2>Login</h2>
+        <input type="text" id="userId" class="input-field" placeholder="User ID">
+        <input type="password" id="password" class="input-field" placeholder="Password">
+        <button class="login-button" onclick="performLogin()">Login</button>
+        <button class="login-button" onclick="hideLogin()">Cancel</button>
+    </div>
+
+    <script>
+        function toggleNavMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.style.display = (navMenu.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function navigate(sectionId) {
+            const sections = ['homePage', 'masters', 'jobs', 'events', 'mentorship', 'feedback', 'achievements', 'resume'];
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.style.display = (id === sectionId) ? 'block' : 'none';
+                }
+            });
+        }
+
+        function showLogin() {
+            // Check if the login container already exists
+            if (document.querySelector('.login-container')) {
+                document.getElementById('login-container').style.display = 'flex';
+                return; // Exit if already present
+            }
+
+            const loginContainer = document.createElement('div');
+            loginContainer.className = 'login-container';
+            loginContainer.id = 'login-container';
+            loginContainer.innerHTML = `
+                <h2>Login</h2>
+                <input type="text" id="userId" class="input-field" placeholder="User ID">
+                <input type="password" id="password" class="input-field" placeholder="Password">
+                <button class="login-button" onclick="performLogin()">Login</button>
+                <button class="login-button" onclick="hideLogin()">Cancel</button>
+            `;
+            document.body.appendChild(loginContainer);
+            document.getElementById('login-container').style.display = 'flex';
+        }
+
+        function hideLogin() {
+            const loginContainer = document.getElementById('login-container');
+            if (loginContainer) {
+                loginContainer.style.display = 'none';
+            }
+        }
+
+        function performLogin() {
+            const validUserIds = ['2023001234', '2023001533', '2023001354', '2023003987'];
+            const validPassword = 'Gitam';
+
+            const userId = document.getElementById('userId').value;
+            const password = document.getElementById('password').value;
+
+            if (validUserIds.includes(userId) && password === validPassword) {
+                hideLogin();
+                navigate('homePage');
+            } else {
+                alert('Invalid credentials, please try again.');
+            }
+        }
+
+        function postFeedback() {
+            const feedbackTextbox = document.getElementById('feedback-textbox');
+            const feedbackComments = document.getElementById('feedback-comments');
+
+            const newFeedback = feedbackTextbox.value.trim();
+            if (newFeedback) {
+                const newComment = document.createElement('p');
+                newComment.textContent = `New User: "${newFeedback}"`;
+                feedbackComments.appendChild(newComment);
+                feedbackTextbox.value = ''; // Clear the textbox after posting
+            } else {
+                alert('Please enter your feedback before posting.');
+            }
+        }
+    </script>
+</body>
+
+</html>
